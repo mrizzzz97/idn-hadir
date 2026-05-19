@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB; // Menggunakan query builder untuk menghitung data asli
 
 class DashboardController extends Controller
 {
@@ -17,7 +18,14 @@ class DashboardController extends Controller
             abort(403, 'Anda tidak memiliki hak akses untuk membuka halaman Admin.');
         }
 
-        return view('dashboards.admin');
+        // Ambil data riil dari database (Menghilangkan data dummy)
+        $totalKelas = DB::table('classes')->count();
+        $totalGuru = DB::table('users')->where('role', 'guru')->count();
+        $totalSiswa = DB::table('users')->where('role', 'siswa')->count();
+        $totalJadwal = DB::table('schedules')->count();
+
+        // Oper semua variabel ke dalam view dashboards/admin.blade.php
+        return view('dashboards.admin', compact('totalKelas', 'totalGuru', 'totalSiswa', 'totalJadwal'));
     }
 
     /**

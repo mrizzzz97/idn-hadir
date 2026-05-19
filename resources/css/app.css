@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* 1. SUNTIKKAN BARIS INI BIAR TAILWIND v4 SINKRON SAMA JAVASCRIPT DARK MODE */
+@variant dark (&:where(.dark, .dark *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
