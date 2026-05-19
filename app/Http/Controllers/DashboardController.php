@@ -12,9 +12,9 @@ class DashboardController extends Controller
      */
     public function admin()
     {
-        // Pengamanan tambahan: Pastikan yang buka beneran admin
+        // Jika user yang login rolenya bukan admin, lempar ke halaman custom error 403
         if (Auth::user()->role !== 'admin') {
-            return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman Admin.');
+            abort(403, 'Anda tidak memiliki hak akses untuk membuka halaman Admin.');
         }
 
         return view('dashboards.admin');
@@ -25,9 +25,9 @@ class DashboardController extends Controller
      */
     public function guru()
     {
-        // Pengamanan tambahan: Pastikan yang buka beneran guru
+        // Jika user yang login rolenya bukan guru, lempar ke halaman custom error 403
         if (Auth::user()->role !== 'guru') {
-            return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman Guru.');
+            abort(403, 'Anda tidak memiliki hak akses untuk membuka halaman Guru.');
         }
 
         return view('dashboards.guru');
@@ -38,9 +38,9 @@ class DashboardController extends Controller
      */
     public function siswa()
     {
-        // Pengamanan tambahan: Pastikan yang buka beneran siswa
+        // Jika user yang login rolenya bukan siswa, lempar ke halaman custom error 403
         if (Auth::user()->role !== 'siswa') {
-            return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman Siswa.');
+            abort(403, 'Anda tidak memiliki hak akses untuk membuka halaman Siswa.');
         }
 
         return view('dashboards.siswa');
